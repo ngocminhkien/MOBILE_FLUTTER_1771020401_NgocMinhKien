@@ -28,21 +28,13 @@ Swagger UI có sẵn tại: http://localhost:5290/swagger.
 
 2. Cấu hình Flutter (Mobile/Web)
 Cài đặt thư viện:
-
-Bash
 cd mobile
 flutter pub get
 Cấu hình API URL: * Mở lib/services/api_service.dart.
-
 Nếu chạy trên Edge/Web: Sử dụng http://localhost:5290/api.
-
 Nếu chạy trên Android Emulator: Sử dụng http://10.0.2.2:5290/api.
 
 Chạy App:
-
-Bash
-flutter run -d edge  # Cho trình duyệt Edge
-# hoặc
 flutter run          # Cho thiết bị di động
 📋 Tính năng chính
 Đăng ký/Đăng nhập: Hệ thống quản lý tài khoản bảo mật với ASP.NET Identity.
