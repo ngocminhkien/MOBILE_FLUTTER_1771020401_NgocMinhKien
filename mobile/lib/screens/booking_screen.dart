@@ -32,7 +32,7 @@ class _BookingScreenState extends State<BookingScreen> {
   // Hàm gọi API lấy dữ liệu
   void _fetchSlots(DateTime date) async {
     setState(() => _isLoading = true);
-    final booked = await ApiService().getBookedSlots(date);
+    final booked = await ApiService.getBookedSlots(date);
     setState(() {
       _bookedSlots = booked;
       _isLoading = false;
@@ -56,7 +56,7 @@ class _BookingScreenState extends State<BookingScreen> {
 
     if (confirm == true) {
       // Gọi API đặt sân
-      await ApiService().createBooking(slot, _selectedDay);
+      await ApiService.createBooking(slot, _selectedDay);
       
       // Thông báo và reload lại danh sách
       if (mounted) {

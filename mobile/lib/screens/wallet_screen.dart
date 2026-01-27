@@ -27,7 +27,7 @@ class _WalletScreenState extends State<WalletScreen> {
           ElevatedButton(
             onPressed: () async {
               // Gọi hàm topUp đã định nghĩa trong ApiService
-              bool success = await ApiService().topUp("admin@gmail.com", amount);
+              bool success = await ApiService.topUp("admin@gmail.com", amount);
               if (success && mounted) {
                 setState(() => _balance += amount);
                 Navigator.pop(context);

@@ -19,9 +19,20 @@ class _MemberListScreenState extends State<MemberListScreen> {
   }
 
   Future<void> _loadMembers() async {
-    // API lấy toàn bộ member bạn cần viết thêm ở Backend
-    // Ở đây tạm để rỗng cho đến khi bạn có API list member
-    setState(() => _isLoading = false);
+    try {
+
+      var data = await ApiService.fetchMembers();
+
+      setState(() {
+        _members = data; // Gán dữ liệu vào biến _members
+        _isLoading = false;
+      });
+    } catch (e) {
+      print("Lỗi tải dữ liệu: $e");
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override

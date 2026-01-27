@@ -4,6 +4,7 @@ class Tournament {
   final String status; 
   final String format; 
   final double prizePool;
+  static List<Tournament> get mockData => [];
 
   Tournament({
     required this.id,

@@ -117,3 +117,4 @@ E:\mobile app\kt\Backend\obj\Debug\net8.0\refint\PcmApi.dll
 E:\mobile app\kt\Backend\obj\Debug\net8.0\PcmApi.pdb
 E:\mobile app\kt\Backend\obj\Debug\net8.0\PcmApi.genruntimeconfig.cache
 E:\mobile app\kt\Backend\obj\Debug\net8.0\ref\PcmApi.dll
+E:\mobile app\kt\Backend\obj\Debug\net8.0\PcmApi.sourcelink.json

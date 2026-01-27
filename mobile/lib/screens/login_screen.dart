@@ -17,11 +17,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleLogin() async {
     setState(() => _isLoading = true);
     
-    final result = await ApiService().login(
-      _emailController.text, 
-      _passwordController.text
-    );
-
+    final result = await ApiService.login(
+  _emailController.text.trim(),
+  _passwordController.text.trim()
+);
     setState(() => _isLoading = false);
 
     if (result != null) {
@@ -56,7 +55,11 @@ class _LoginScreenState extends State<LoginScreen> {
             _isLoading 
               ? const CircularProgressIndicator() 
               : ElevatedButton(onPressed: _handleLogin, child: const Text("Đăng Nhập")),
-          ],
+              TextButton(
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterScreen())),
+              child: const Text("Chưa có tài khoản? Đăng ký ngay"),
+            )
+            ],
         ),
       ),
     );

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PcmApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+58802d8d60138f2cb10d0b3c01b29797c290a7dc")]
 [assembly: System.Reflection.AssemblyProductAttribute("PcmApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PcmApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

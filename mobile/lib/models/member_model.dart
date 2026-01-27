@@ -5,6 +5,7 @@ class Member {
   final double walletBalance;
   final String tier; 
   final double rankLevel;
+  static List<Member> get mockList => [];
 
   Member({
     required this.id,
