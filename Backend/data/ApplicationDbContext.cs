@@ -13,5 +13,6 @@ namespace PcmApi.Data
 
         public DbSet<Court> Courts { get; set; }
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Tournament> Tournaments { get; set; }
     }
 }

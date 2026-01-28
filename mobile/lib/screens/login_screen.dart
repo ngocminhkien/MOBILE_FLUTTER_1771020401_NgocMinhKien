@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import 'home_screen.dart';
+import 'register_screen.dart'; // Import màn hình đăng ký vừa sửa xong
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -16,25 +16,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _handleLogin() async {
     setState(() => _isLoading = true);
-    
-    final result = await ApiService.login(
-  _emailController.text.trim(),
-  _passwordController.text.trim()
-);
+    // Gọi API Login
+    bool success = await ApiService.login(_emailController.text.trim(), _passwordController.text.trim());
     setState(() => _isLoading = false);
 
-    if (result != null) {
+    if (success) {
       if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
       }
     } else {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Sai email hoặc mật khẩu!")),
-        );
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Sai email hoặc mật khẩu!"), backgroundColor: Colors.red));
       }
     }
   }
@@ -47,19 +39,27 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Đăng Nhập Pickleball", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            const Icon(Icons.login, size: 80, color: Colors.green),
             const SizedBox(height: 20),
-            TextField(controller: _emailController, decoration: const InputDecoration(labelText: "Email")),
-            TextField(controller: _passwordController, decoration: const InputDecoration(labelText: "Mật khẩu"), obscureText: true),
+            const Text("Đăng Nhập", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 20),
+            TextField(controller: _emailController, decoration: const InputDecoration(labelText: "Email", border: OutlineInputBorder(), prefixIcon: Icon(Icons.email))),
+            const SizedBox(height: 15),
+            TextField(controller: _passwordController, obscureText: true, decoration: const InputDecoration(labelText: "Mật khẩu", border: OutlineInputBorder(), prefixIcon: Icon(Icons.lock))),
             const SizedBox(height: 20),
             _isLoading 
               ? const CircularProgressIndicator() 
-              : ElevatedButton(onPressed: _handleLogin, child: const Text("Đăng Nhập")),
-              TextButton(
+              : SizedBox(
+                  width: double.infinity, 
+                  height: 50,
+                  child: ElevatedButton(onPressed: _handleLogin, style: ElevatedButton.styleFrom(backgroundColor: Colors.green, foregroundColor: Colors.white), child: const Text("ĐĂNG NHẬP")),
+                ),
+            TextButton(
+              // Chuyển sang màn hình Đăng ký
               onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterScreen())),
               child: const Text("Chưa có tài khoản? Đăng ký ngay"),
             )
-            ],
+          ],
         ),
       ),
     );
