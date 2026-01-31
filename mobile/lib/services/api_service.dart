@@ -33,10 +33,9 @@ class ApiService {
         UserSession.userId = data['userId'];
         UserSession.email = email;
         UserSession.fullName = data['fullName'];
+        UserSession.balance = (data['walletBalance'] ?? 0).toDouble();
+        UserSession.role = data['role'] ?? "Member";
         
-        // Gọi thêm API lấy số dư mới nhất (nếu Backend hỗ trợ)
-        // UserSession.balance = data['walletBalance'] ?? 0.0; 
-        UserSession.balance = 0.0; // Tạm thời set 0 nếu chưa có API lấy balance
         return true;
       }
     } catch (e) { print("Lỗi login: $e"); }
@@ -117,24 +116,54 @@ class ApiService {
     } catch (e) { return []; }
   }
 
-  static Future<bool> createTournament(String name, double prizeMoney) async {
-    try {
-      final response = await http.post(
-        Uri.parse('$baseUrl/Tournaments'),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-          "name": name,
-          "prizeMoney": prizeMoney, // Gửi thêm tiền thưởng
-          // Ngày bắt đầu mặc định là ngày mai
-          "startDate": DateTime.now().add(const Duration(days: 1)).toIso8601String(),
-          "status": "Upcoming"
-        }),
-      );
-      // Chấp nhận cả 200 OK và 201 Created
-      return response.statusCode == 200 || response.statusCode == 201;
-    } catch (e) {
-      print("Lỗi tạo giải: $e");
-      return false;
+static Future<bool> createTournament(String name, double prizeMoney, String status, String format,String date,int courtId) async {
+  try {
+    final response = await http.post(
+      Uri.parse('$baseUrl/Tournaments'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "name": name,
+        "prizeMoney": prizeMoney,
+        "startDate": date, 
+        "courtId": courtId,
+        "status": status,
+        "format": format // Gửi thêm định dạng (1v1 hoặc 2v2)
+      }),
+    );
+    return response.statusCode == 200 || response.statusCode == 201;
+  } catch (e) {
+    print("Lỗi API: $e");
+    return false;
+  }
+}
+// ... Trong class ApiService
+
+  // 1. Lấy thống kê Dashboard
+  static Future<Map<String, dynamic>> getDashboardStats() async {
+  try {
+    final response = await http.get(Uri.parse('$baseUrl/Stats/dashboard'));
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
     }
+  } catch (e) { print("Lỗi Stats: $e"); }
+  // Trả về số 0 mặc định nếu lỗi, tránh bị null
+  return {
+    "members": 0, 
+    "tournaments": 0, 
+    "pendingRequests": 0, 
+    "systemBalance": 0
+  };
+}
+
+  // 2. Duyệt hoặc Từ chối giải đấu
+  static Future<bool> updateTournamentStatus(int id, String newStatus) async {
+    try {
+      final response = await http.put(
+        Uri.parse('$baseUrl/Tournaments/$id/status'),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(newStatus), // Gửi chuỗi status trực tiếp
+      );
+      return response.statusCode == 200;
+    } catch (e) { return false; }
   }
 }

@@ -42,5 +42,20 @@ namespace PcmApi.Controllers
             // Trả về 201 Created cùng với dữ liệu vừa tạo
             return CreatedAtAction("GetTournaments", new { id = tournament.Id }, tournament);
         }
+        [HttpPut("{id}/status")]
+        public async Task<IActionResult> UpdateStatus(int id, [FromBody] string newStatus)
+        {
+            var tournament = await _context.Tournaments.FindAsync(id);
+            if (tournament == null)
+            {
+                return NotFound("Không tìm thấy giải đấu");
+            }
+
+            // Cập nhật trạng thái
+            tournament.Status = newStatus;
+            
+            await _context.SaveChangesAsync();
+            return Ok(new { message = $"Đã cập nhật trạng thái thành {newStatus}" });
+        }
     }
 }

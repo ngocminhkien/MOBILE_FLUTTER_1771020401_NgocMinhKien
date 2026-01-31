@@ -46,6 +46,9 @@ Quản lý ví: Nạp tiền và thanh toán phí thuê sân.
 Giải đấu: Xem thông tin và đăng ký tham gia các giải đấu Pickleball.
 
 🧪 Tài khoản kiểm thử (Test Account)
-Email: admin@gmail.com
-
-Mật khẩu: Admin@123 (Mật khẩu mạnh theo tiêu chuẩn .NET)
+Tài khoản người dùng
+Email:user@gmail.com
+Mật khẩu:User@123
+Tài khoản quản trị hệ thống
+Email: admin2@gmail.com
+Mật khẩu: Admin@123

@@ -1,0 +1,20 @@
+# --- FLUTTER ---
+/build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# --- .NET / C# ---
+/bin/
+/obj/
+.vs/
+.vscode/
+appsettings.Development.json
+*.user
+
+# --- OS ---
+.DS_Store
+Thumbs.db

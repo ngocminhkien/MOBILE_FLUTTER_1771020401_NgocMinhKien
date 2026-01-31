@@ -15,7 +15,7 @@ namespace PcmApi.Models
         public DateTime StartDate { get; set; }
 
         public string Status { get; set; } = "Upcoming"; // Upcoming, Ongoing, Finished
-
+        public String Format{get;set;} ="2v2";
         // Thêm trường tiền thưởng
         [Column(TypeName = "decimal(18, 2)")]
         public decimal PrizeMoney { get; set; } = 0;
